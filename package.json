@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev2": "webpack-dev-server --open --contentBase src --hot",
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server --host 10.17.24.73"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "mint-ui": "^2.2.13",
     "moment": "^2.24.0",
     "vue": "^2.6.10",
+    "vue-preview": "^1.1.3",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.1.2"
   },
