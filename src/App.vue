@@ -1,7 +1,9 @@
 <template>
     <div class="app-container">
         <!-- 顶部header区域 -->
-        <mt-header fixed title="新闻"></mt-header>
+        <mt-header fixed title="新闻">
+			<!-- <div><span>&lt;</span>&nbsp;返回</div> -->
+		</mt-header>
 
         <!-- 中间路由 router-view 区域 -->
         <transition>
