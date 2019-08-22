@@ -1,6 +1,6 @@
 # vue项目
 
-## 制作首页App组件
+### 制作首页App组件
 1. 完成 header 区域，使用的是 Mint-UI 的 Header 组件
 2. 制作底部的 Tabbar 区域，使用的是 MUI 的 Tabbar.html
   + 制作 购物车小图标时操作相对多一些：
