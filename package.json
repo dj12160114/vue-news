@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev2": "webpack-dev-server --open --contentBase src --hot",
-    "dev": "webpack-dev-server --host 10.17.24.73"
+    "dev": "webpack-dev-server"
   },
   "keywords": [],
   "author": "",

@@ -32,22 +32,21 @@ export default {
             msg: ''
         }
     },
-    props: ['newsid'],
+    props: ['id'],
     created() {
         this.getComments()
     },
     methods: {
         getComments() {
-            this.$http
-            .get('"api/getcomments/"+ this.newsid + "?pageIndex=" + this.pageIndex')
+            this.$http.get('api/getcomments/'+ this.id + '?pageIndex=' + this.pageIndex)
             .then(result => {
                 if(result.body.status === 0){
-                    console.log(result.body)
+                    console.log(result.body.message)
                     // this.comments = result.body.message
                     // 防止点击 加载更多后 清空老评论数据
                     this.comments = this.comments.concat(result.body.message)
                 } else { 
-                    console.log(result.body)
+                    console.log(result)
                     Toast('新闻评论获取失败！')
                 }
             })
@@ -62,7 +61,7 @@ export default {
             }
 
             this.$http
-            .post('"api/postcomment/" + this.newsid', { content: this.msg.trim() })
+            .post('api/postcomment/' + this.id, { content: this.msg.trim() })
             .then(function(result) {
                 if(result.body.status === 0) {
                     var cmt = { 

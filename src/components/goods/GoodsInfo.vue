@@ -1,5 +1,11 @@
 <template>
     <div class="goods-info">
+        <transition @before-enter="beforeEnter"
+                    @enter="enter"
+                    @after-enter="afterEnter">
+            <span class="ball" v-show="ballFlag" ref="ball"></span>
+        </transition>
+       
         <!-- 商品轮播图区域 -->
         <div class="mui-card">
             <div class="mui-card-content">
@@ -21,10 +27,12 @@
                         市场价：<del>￥{{ goodsinfo.market_price }}</del>&nbsp;&nbsp;
                         销售价：<span class="now_price">￥{{ goodsinfo.sell_price}}</span>
                     </p>
-                    <P>购买数量：<infonum></infonum></P>
+                    <p class="buy-num">购买数量：
+                        <infonum @getcount="getSelectedCount" :max="goodsinfo.stock_quantity"></infonum>
+                    </p>
                     <p>
                         <mt-button type="primary" size="small">立即购买</mt-button>
-                        <mt-button type="danger" size="small">加入购物车</mt-button>
+                        <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
                     </p>
                 </div>
             </div>
@@ -59,7 +67,10 @@ export default {
         return {
             id: this.$route.params.id,
             swipeList: [],
-            goodsinfo: {}
+            goodsinfo: {},
+            ballFlag: false,
+            selectedCount: 1, // 保存选中的商品数量
+            
         }
     },
     methods: {
@@ -96,6 +107,35 @@ export default {
         // 点击跳转到评论页面
         goComment(id) {
             this.$router.push({ name:'gocomment', params: { id }})
+        },
+        addToShopCar() {
+            this.ballFlag = !this.ballFlag
+        },
+        beforeEnter(el) {
+            el.style.transform = "translate(0, 0)"
+        },
+        enter(el, done) {
+            el.offsetWidth;
+            // 获取小球在页面的位置
+            const ballPosition = this.$refs.ball.getBoundingClientRect();
+            // 获取购物车数量在页面的位置
+            const badgePosition = document.getElementById('badge').getBoundingClientRect();
+
+            const xDist = badgePosition.left - ballPosition.left;
+            const yDist = badgePosition.top - ballPosition.top;
+            // ES6模板字符串
+            el.style.transform = `translate(${xDist}px, ${yDist}px)`;
+            el.style.transition = "all 0.5s cubic-bezier(.4,-0.3,1,.68)";
+            done()
+            // cubic-bezier(.4,-0.3,1,.68)
+        },
+        afterEnter(el) {
+            this.ballFlag = !this.ballFlag;
+        },
+        getSelectedCount(count) {
+            // 子组件把选中的数量传递给父组件的时候，把 选中的值 保存到data中
+           this.selectedCount = count;
+           console.log(this.selectedCount)
         }
     },
     created() {
@@ -120,14 +160,27 @@ export default {
         font-size: 16px;
         
     }
-
+ 
     .mui-card-footer {
         display: block;
 
         button {
             margin: 15px 0;
         }
+
+       
     }
-    
+    .ball{
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: #666;
+        position: absolute;
+        z-index: 99;
+        left: 150px;
+        top: 370px;
+
+    }
+   
 }
 </style>

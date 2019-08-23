@@ -12,7 +12,7 @@
 
         </div>
         <!-- 评论子组件区域 -->
-        <comment :newsid="this.id"></comment>
+        <comment :id="this.id"></comment>
     </div>
 </template>
 
