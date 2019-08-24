@@ -46,7 +46,7 @@ export default {
                     // 防止点击 加载更多后 清空老评论数据
                     this.comments = this.comments.concat(result.body.message)
                 } else { 
-                    console.log(result)
+                    console.log(result.body.message)
                     Toast('新闻评论获取失败！')
                 }
             })

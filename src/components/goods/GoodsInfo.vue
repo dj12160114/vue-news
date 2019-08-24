@@ -109,7 +109,16 @@ export default {
             this.$router.push({ name:'gocomment', params: { id }})
         },
         addToShopCar() {
-            this.ballFlag = !this.ballFlag
+            this.ballFlag = !this.ballFlag;
+            // 保存到 car 数组中的商品对象
+            var shopCarList = { 
+                id: this.id, 
+                count: this.selectedCount, 
+                price: this.goodsinfo.sell_price, 
+                selected: true
+            };
+
+            this.$store.commit('addToCar', shopCarList);
         },
         beforeEnter(el) {
             el.style.transform = "translate(0, 0)"
@@ -174,7 +183,7 @@ export default {
         width: 16px;
         height: 16px;
         border-radius: 50%;
-        background-color: #666;
+        background-color: red;
         position: absolute;
         z-index: 99;
         left: 150px;
