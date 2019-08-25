@@ -2,7 +2,9 @@
     <div class="app-container">
         <!-- 顶部header区域 -->
         <mt-header fixed title="新闻">
-			<!-- <div><span>&lt;</span>&nbsp;返回</div> -->
+			<span slot="left" @click="goback" v-show="flag">
+				<mt-button icon="back">返回</mt-button>
+			</span>
 		</mt-header>
 
         <!-- 中间路由 router-view 区域 -->
@@ -39,7 +41,29 @@
 
 <script>
 export default {
-    
+	data() {
+		return {
+			flag: false
+		}
+	},
+	created() {
+		this.flag = this.$route.path === '/home'? false : true
+	},
+    methods: {
+		goback() {
+			// 点击后退
+			this.$router.go(-1);
+		}
+	},
+	watch: {
+		'$route.path': function(newVal) {
+			if(newVal === '/home') {
+				this.flag = false;
+			} else {
+				this.flag = true;
+			}
+		}
+	}
 }
 </script>
 
